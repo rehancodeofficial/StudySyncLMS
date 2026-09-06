@@ -1,46 +1,33 @@
+import { useEffect, useState } from 'react'
 import { Calendar, PlayCircle, Clock, CheckCircle2, Trophy, MoreHorizontal, ChevronRight, FileText, Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
-
-const LEARNING_PATH = [
-  { 
-    id: '1', title: 'Foundations of Database Systems', duration: '2h 15m', status: 'COMPLETED', progress: 100,
-    modules: [
-      { id: 'm1', title: 'Introduction to Relational Algebra', type: 'video', duration: '45m', completed: true },
-      { id: 'm2', title: 'Entity-Relationship Modeling', type: 'reading', duration: '30m', completed: true },
-      { id: 'm3', title: 'Module 1 Quiz', type: 'quiz', duration: '1h', completed: true },
-    ]
-  },
-  { 
-    id: '2', title: 'Advanced SQL Queries', duration: '3h 45m', status: 'IN_PROGRESS', progress: 45,
-    modules: [
-      { id: 'm4', title: 'Joins and Subqueries', type: 'video', duration: '1h 15m', completed: true },
-      { id: 'm5', title: 'Window Functions', type: 'video', duration: '1h', completed: false, current: true },
-      { id: 'm6', title: 'Practice Exercises', type: 'assignment', duration: '1h 30m', completed: false },
-    ]
-  },
-  { 
-    id: '3', title: 'Database Optimization & Indexing', duration: '4h', status: 'LOCKED', progress: 0,
-    modules: [
-      { id: 'm7', title: 'B-Tree Indexes', type: 'video', duration: '1h 30m', completed: false },
-      { id: 'm8', title: 'Query Execution Plans', type: 'reading', duration: '45m', completed: false },
-      { id: 'm9', title: 'Final Assessment', type: 'exam', duration: '1.5h', completed: false },
-    ]
-  },
-]
+import api from '@/api/client'
+import { useAuth } from '@/hooks/useAuth'
 
 export function StudentDashboard() {
+  const { user } = useAuth()
+  const [enrollments, setEnrollments] = useState<any[]>([])
+  
+  useEffect(() => {
+    if (user?.id) {
+      api.get(`/enrollments/student/${user.id}`)
+         .then(res => setEnrollments(res.data))
+         .catch(err => console.error(err))
+    }
+  }, [user])
+
   return (
     <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
       {/* Left Column - Learning Path */}
       <div className="flex-1 flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Your Learning Path</h1>
-            <p className="text-slate-500 mt-1">CS-401 Database Systems</p>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Your Enrolled Courses</h1>
+            <p className="text-slate-500 mt-1">Welcome back, {user?.name}</p>
           </div>
           <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm">
             <Trophy className="w-4 h-4 text-amber-500" />
-            <span className="text-sm font-bold text-slate-800">Rank: Top 10%</span>
+            <span className="text-sm font-bold text-slate-800">{enrollments.length} Active Courses</span>
           </div>
         </div>
 
@@ -60,66 +47,40 @@ export function StudentDashboard() {
             {/* Vertical timeline line */}
             <div className="absolute left-6 top-10 bottom-10 w-0.5 bg-slate-100"></div>
 
-            <div className="flex flex-col gap-10">
-              {LEARNING_PATH.map((section, idx) => (
-                <div key={section.id} className="relative z-10 flex gap-6">
-                  {/* Status Node */}
-                  <div className="shrink-0 mt-1">
-                    {section.status === 'COMPLETED' ? (
-                      <div className="w-12 h-12 rounded-full bg-green-50 border-2 border-green-500 flex items-center justify-center text-green-600 shadow-[0_0_0_8px_white]">
-                        <CheckCircle2 className="w-6 h-6" />
-                      </div>
-                    ) : section.status === 'IN_PROGRESS' ? (
+            <div className="flex flex-col gap-6">
+              {enrollments.length === 0 ? (
+                <div className="text-center text-slate-500 py-8">
+                  You are not currently enrolled in any courses.
+                </div>
+              ) : (
+                enrollments.map((enrollment, idx) => (
+                  <div key={enrollment.id} className="relative z-10 flex gap-6">
+                    {/* Status Node */}
+                    <div className="shrink-0 mt-1">
                       <div className="w-12 h-12 rounded-full bg-blue-50 border-2 border-blue-600 flex items-center justify-center text-blue-600 shadow-[0_0_0_8px_white] relative">
-                        <div className="absolute inset-0 rounded-full border-t-2 border-blue-400 animate-spin"></div>
                         <PlayCircle className="w-5 h-5 fill-current" />
                       </div>
-                    ) : (
-                      <div className="w-12 h-12 rounded-full bg-slate-50 border-2 border-slate-200 flex items-center justify-center text-slate-400 shadow-[0_0_0_8px_white]">
-                        <Lock className="w-5 h-5" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Section Content */}
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className={`text-lg font-bold ${section.status === 'LOCKED' ? 'text-slate-400' : 'text-slate-900'}`}>{section.title}</h3>
-                        <div className="flex items-center gap-3 mt-2">
-                          <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                            <Clock className="w-3.5 h-3.5" /> {section.duration}
-                          </span>
-                          <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                          <span className="text-xs font-medium text-slate-500">{section.modules.length} Modules</span>
-                        </div>
-                      </div>
-                      {section.status === 'IN_PROGRESS' && (
-                        <button className="btn-primary btn-sm rounded-full shadow-md shadow-blue-600/20">Resume</button>
-                      )}
                     </div>
 
-                    {/* Modules List */}
-                    <div className="bg-slate-50 rounded-2xl p-2 border border-slate-100 flex flex-col gap-1">
-                      {section.modules.map(mod => (
-                        <div key={mod.id} className={`flex items-center justify-between p-3 rounded-xl transition-colors ${mod.current ? 'bg-white shadow-sm border border-slate-200' : 'hover:bg-slate-100/50 border border-transparent'}`}>
-                          <div className="flex items-center gap-4">
-                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${mod.completed ? 'bg-green-100 text-green-600' : mod.current ? 'bg-blue-100 text-blue-600' : 'bg-slate-200 text-slate-400'}`}>
-                              {mod.type === 'video' ? <PlayCircle className="w-4 h-4" /> : <FileText className="w-4 h-4" />}
-                            </div>
-                            <div>
-                              <p className={`text-sm font-semibold ${mod.completed || mod.current ? 'text-slate-800' : 'text-slate-500'}`}>{mod.title}</p>
-                              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider mt-0.5">{mod.type} • {mod.duration}</p>
-                            </div>
+                    {/* Section Content */}
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold text-slate-900">{enrollment.course.title}</h3>
+                          <div className="flex items-center gap-3 mt-2">
+                            <span className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+                              <Clock className="w-3.5 h-3.5" /> {enrollment.course.code}
+                            </span>
+                            <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                            <span className="text-xs font-medium text-slate-500">{enrollment.course.credits} Credits</span>
                           </div>
-                          {mod.completed && <CheckCircle2 className="w-5 h-5 text-green-500" />}
-                          {mod.current && <span className="text-xs font-bold text-blue-600 px-3 py-1 bg-blue-50 rounded-full">Current</span>}
                         </div>
-                      ))}
+                        <Link to={`/student/courses/${enrollment.course.id}`} className="btn-primary btn-sm rounded-full shadow-md shadow-blue-600/20">Go to Course</Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>

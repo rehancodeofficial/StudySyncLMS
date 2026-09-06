@@ -25,16 +25,9 @@ export const auth = {
 }
 
 export const roleRedirects: Record<Role, string> = {
-  SUPER_ADMIN: '/admin/dashboard',
-  UNIVERSITY_ADMIN: '/admin/dashboard',
-  DEPARTMENT_ADMIN: '/admin/dashboard',
-  FACULTY: '/teacher/dashboard',
-  STUDENT: '/student/dashboard',
-  ACCOUNTANT: '/admin/finance',
-  LIBRARIAN: '/admin/library',
-  HR: '/admin/hr',
-  RECEPTIONIST: '/admin/admissions',
-  TRANSPORT_MANAGER: '/admin/transport',
+  ROLE_ADMIN: '/admin/dashboard',
+  ROLE_INSTRUCTOR: '/teacher/dashboard',
+  ROLE_STUDENT: '/student/dashboard',
 }
 
 export const canAccess = (user: User | null, requiredRoles: Role[]): boolean => {

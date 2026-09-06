@@ -16,14 +16,16 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
     @JsonIgnore
     private String password;
+    private Long organizationId;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String name, String email, String password,
+    public UserDetailsImpl(Long id, String name, String email, String password, Long organizationId,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.organizationId = organizationId;
         this.authorities = authorities;
     }
 
@@ -32,15 +34,19 @@ public class UserDetailsImpl implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
+        Long orgId = (user.getOrganization() != null) ? user.getOrganization().getId() : null;
+
         return new UserDetailsImpl(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
+                orgId,
                 authorities);
     }
 
     public Long getId() { return id; }
+    public Long getOrganizationId() { return organizationId; }
     public String getName() { return name; }
     @Override public String getUsername() { return email; }
     @Override public String getPassword() { return password; }

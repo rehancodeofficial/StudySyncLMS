@@ -1,16 +1,9 @@
 import type { ReactNode } from 'react'
 
 export type Role =
-  | 'SUPER_ADMIN'
-  | 'UNIVERSITY_ADMIN'
-  | 'DEPARTMENT_ADMIN'
-  | 'FACULTY'
-  | 'STUDENT'
-  | 'ACCOUNTANT'
-  | 'LIBRARIAN'
-  | 'HR'
-  | 'RECEPTIONIST'
-  | 'TRANSPORT_MANAGER'
+  | 'ROLE_ADMIN'
+  | 'ROLE_INSTRUCTOR'
+  | 'ROLE_STUDENT'
 
 export interface User {
   id: string

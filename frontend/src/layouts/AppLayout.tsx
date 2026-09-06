@@ -12,8 +12,8 @@ function AppShell({ role, allowedRoles }: { role: 'admin' | 'teacher' | 'student
 
   if (!isAuthenticated) return <Navigate to="/login" replace />
   if (user && !allowedRoles.includes(user.role)) {
-    if (user.role === 'FACULTY') return <Navigate to="/teacher/dashboard" replace />
-    if (user.role === 'STUDENT') return <Navigate to="/student/dashboard" replace />
+    if (user.role === 'ROLE_INSTRUCTOR') return <Navigate to="/teacher/dashboard" replace />
+    if (user.role === 'ROLE_STUDENT') return <Navigate to="/student/dashboard" replace />
     return <Navigate to="/admin/dashboard" replace />
   }
 
@@ -36,9 +36,9 @@ function AppShell({ role, allowedRoles }: { role: 'admin' | 'teacher' | 'student
   )
 }
 
-const ADMIN_ROLES = ['SUPER_ADMIN', 'UNIVERSITY_ADMIN', 'DEPARTMENT_ADMIN', 'ACCOUNTANT', 'LIBRARIAN', 'HR', 'RECEPTIONIST', 'TRANSPORT_MANAGER']
-const TEACHER_ROLES = ['FACULTY']
-const STUDENT_ROLES = ['STUDENT']
+const ADMIN_ROLES = ['ROLE_ADMIN']
+const TEACHER_ROLES = ['ROLE_INSTRUCTOR']
+const STUDENT_ROLES = ['ROLE_STUDENT']
 
 export function AdminLayout() {
   return <AppShell role="admin" allowedRoles={ADMIN_ROLES} />

@@ -5,7 +5,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.studysync.lms.security.services.UserDetailsImpl;
 import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
@@ -20,9 +20,10 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                .claim("organizationId", userPrincipal.getOrganizationId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(key(), SignatureAlgorithm.HS256)

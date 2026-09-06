@@ -14,11 +14,10 @@ const schema = z.object({
 })
 type FormData = z.infer<typeof schema>
 
-// Demo credentials for development
 const DEMO_ACCOUNTS = [
-  { label: 'Admin', email: 'admin@studysync.edu', password: 'demo123', role: 'UNIVERSITY_ADMIN' },
-  { label: 'Teacher', email: 'teacher@studysync.edu', password: 'demo123', role: 'FACULTY' },
-  { label: 'Student', email: 'student@studysync.edu', password: 'demo123', role: 'STUDENT' },
+  { label: 'Admin', email: 'admin@studysync.com', password: 'password123', role: 'ROLE_ADMIN' },
+  { label: 'Teacher', email: 'instructor@studysync.com', password: 'password123', role: 'ROLE_INSTRUCTOR' },
+  { label: 'Student', email: 'student@studysync.com', password: 'password123', role: 'ROLE_STUDENT' },
 ]
 
 export function LoginPage() {
@@ -41,21 +40,31 @@ export function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      // For demo: match against hardcoded accounts
-      const account = DEMO_ACCOUNTS.find(a => a.email === data.email && data.password === 'demo123')
-      if (!account) {
-        setError('Invalid email or password. Try a demo account below.')
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email, password: data.password })
+      })
+
+      if (!response.ok) {
+        setError('Invalid email or password.')
         return
       }
-      const demoUser = {
-        id: '1',
-        email: account.email,
-        name: account.label === 'Admin' ? 'Dr. Sarah Mitchell' : account.label === 'Teacher' ? 'Prof. James Carter' : 'Alex Johnson',
-        role: account.role as any,
+
+      const resData = await response.json()
+      
+      const loggedInUser = {
+        id: resData.id,
+        email: resData.email,
+        name: resData.name,
+        role: resData.roles[0], // Extract primary role
         institutionId: 'inst_1',
       }
-      login('demo_token', 'demo_refresh', demoUser)
-      navigate(roleRedirects[demoUser.role as keyof typeof roleRedirects])
+      
+      login(resData.token, resData.token, loggedInUser) // Refresh token isn't implemented, using access token twice as placeholder
+      navigate(roleRedirects[loggedInUser.role as keyof typeof roleRedirects] || '/')
+    } catch (e) {
+      setError('An error occurred. Please check if the backend is running.')
     } finally {
       setLoading(false)
     }
@@ -65,7 +74,7 @@ export function LoginPage() {
     <div className="min-h-screen bg-gray-50 flex">
       {/* Left branding panel */}
       <div className="hidden lg:flex lg:w-1/2 bg-navy-950 flex-col justify-between p-12 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-950 via-blue-650/20 to-navy-950" />
+        <div className="absolute inset-0 bg-linear-to-br from-navy-950 via-blue-650/20 to-navy-950" />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-16">
             <div className="w-10 h-10 bg-blue-650 rounded-xl flex items-center justify-center">
