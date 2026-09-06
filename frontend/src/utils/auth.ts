@@ -18,6 +18,7 @@ export const roleRedirects: Record<Role, string> = {
   ROLE_STUDENT: '/student/dashboard',
 }
 
+
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY)
 }

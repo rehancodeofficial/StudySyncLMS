@@ -36,9 +36,14 @@ function AppShell({ role, allowedRoles }: { role: 'admin' | 'teacher' | 'student
   )
 }
 
-const ADMIN_ROLES = ['ROLE_ADMIN']
+const PLATFORM_ROLES = ['ROLE_SUPER_ADMIN']
+const ADMIN_ROLES = ['ROLE_ORG_ADMIN', 'ROLE_SUPER_ADMIN']
 const TEACHER_ROLES = ['ROLE_INSTRUCTOR']
 const STUDENT_ROLES = ['ROLE_STUDENT']
+
+export function PlatformLayout() {
+  return <AppShell role="admin" allowedRoles={PLATFORM_ROLES} />
+}
 
 export function AdminLayout() {
   return <AppShell role="admin" allowedRoles={ADMIN_ROLES} />

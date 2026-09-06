@@ -1,31 +1,32 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { User } from '@/types'
-import { auth } from '@/utils/auth'
+import { StoredUser } from '@/utils/auth'
+import { getToken, getUser, setToken, setUser, clearAuth } from '@/utils/auth'
 
 interface AuthContextType {
-  user: User | null
+  user: StoredUser | null
   isAuthenticated: boolean
-  login: (token: string, refresh: string, user: User) => void
+  login: (token: string, user: StoredUser) => void
   logout: () => void
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(auth.getUser())
+  const [user, setAuthUser] = useState<StoredUser | null>(getUser())
 
   useEffect(() => {
-    setUser(auth.getUser())
+    setAuthUser(getUser())
   }, [])
 
-  const login = (token: string, refresh: string, userData: User) => {
-    auth.setSession(token, refresh, userData)
+  const login = (token: string, userData: StoredUser) => {
+    setToken(token)
     setUser(userData)
+    setAuthUser(userData)
   }
 
   const logout = () => {
-    auth.clearSession()
-    setUser(null)
+    clearAuth()
+    setAuthUser(null)
     window.location.href = '/login'
   }
 
