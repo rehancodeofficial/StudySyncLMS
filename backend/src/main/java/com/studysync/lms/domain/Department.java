@@ -5,41 +5,30 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "assignments")
+@Table(name = "departments")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Assignment {
+public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String title;
+    private String name;
 
-    @Column(length = 5000)
+    private String code;
     private String description;
 
-    private Double maxMarks;
-    private LocalDateTime dueDate;
-
-    @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private AssignmentStatus status = AssignmentStatus.DRAFT;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+    @JoinColumn(name = "organization_id", nullable = false)
+    private Organization organization;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() { createdAt = LocalDateTime.now(); }
-
-    public enum AssignmentStatus {
-        DRAFT, PUBLISHED, CLOSED
-    }
 }
