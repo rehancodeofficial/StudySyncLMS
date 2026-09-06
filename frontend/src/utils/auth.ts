@@ -1,36 +1,51 @@
-import { User, Role } from '@/types'
+import type { Role } from '@/types'
 
 const TOKEN_KEY = 'studysync_token'
-const REFRESH_TOKEN_KEY = 'studysync_refresh'
 const USER_KEY = 'studysync_user'
 
-export const auth = {
-  getToken: () => localStorage.getItem(TOKEN_KEY),
-  getRefreshToken: () => localStorage.getItem(REFRESH_TOKEN_KEY),
-  getUser: (): User | null => {
-    const u = localStorage.getItem(USER_KEY)
-    return u ? JSON.parse(u) : null
-  },
-  setSession: (token: string, refresh: string, user: User) => {
-    localStorage.setItem(TOKEN_KEY, token)
-    localStorage.setItem(REFRESH_TOKEN_KEY, refresh)
-    localStorage.setItem(USER_KEY, JSON.stringify(user))
-  },
-  clearSession: () => {
-    localStorage.removeItem(TOKEN_KEY)
-    localStorage.removeItem(REFRESH_TOKEN_KEY)
-    localStorage.removeItem(USER_KEY)
-  },
-  isAuthenticated: () => !!localStorage.getItem(TOKEN_KEY),
+export interface StoredUser {
+  id: string
+  name: string
+  email: string
+  role: Role
+  organizationId?: number | null
 }
 
 export const roleRedirects: Record<Role, string> = {
-  ROLE_ADMIN: '/admin/dashboard',
+  ROLE_SUPER_ADMIN: '/platform/dashboard',
+  ROLE_ORG_ADMIN: '/admin/dashboard',
   ROLE_INSTRUCTOR: '/teacher/dashboard',
   ROLE_STUDENT: '/student/dashboard',
 }
 
-export const canAccess = (user: User | null, requiredRoles: Role[]): boolean => {
+export function getToken(): string | null {
+  return localStorage.getItem(TOKEN_KEY)
+}
+
+export function setToken(token: string): void {
+  localStorage.setItem(TOKEN_KEY, token)
+}
+
+export function getUser(): StoredUser | null {
+  const raw = localStorage.getItem(USER_KEY)
+  if (!raw) return null
+  try { return JSON.parse(raw) } catch { return null }
+}
+
+export function setUser(user: StoredUser): void {
+  localStorage.setItem(USER_KEY, JSON.stringify(user))
+}
+
+export function clearAuth(): void {
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(USER_KEY)
+}
+
+export function isAuthenticated(): boolean {
+  return !!getToken() && !!getUser()
+}
+
+export function canAccess(user: StoredUser | null, requiredRoles: Role[]): boolean {
   if (!user) return false
   return requiredRoles.includes(user.role)
 }
