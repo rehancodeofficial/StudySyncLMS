@@ -61,7 +61,7 @@ export function LoginPage() {
         institutionId: 'inst_1',
       }
       
-      login(resData.token, resData.token, loggedInUser) // Refresh token isn't implemented, using access token twice as placeholder
+      login(resData.token, loggedInUser) // Pass token and user directly
       navigate(roleRedirects[loggedInUser.role as keyof typeof roleRedirects] || '/')
     } catch (e) {
       setError('An error occurred. Please check if the backend is running.')
