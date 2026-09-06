@@ -1,16 +1,7 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Play, CheckCircle, GraduationCap, BarChart2, BookOpen, CreditCard, Shield, Smartphone, ChevronDown } from 'lucide-react'
+import { ArrowRight, Play, CheckCircle, GraduationCap, BarChart2, BookOpen, CreditCard, Shield, Smartphone, ChevronDown, Check, ArrowUpRight } from 'lucide-react'
 
 const NAV_LINKS = ['Features', 'Solutions', 'Resources', 'Pricing', 'About']
-
-const FEATURES = [
-  { icon: <GraduationCap className="w-6 h-6 text-blue-600" />, bg: 'bg-blue-50', title: 'Unified Platform', desc: 'All-in-one solution for admissions, academics, LMS, finance, and operations.' },
-  { icon: <BarChart2 className="w-6 h-6 text-teal-600" />, bg: 'bg-teal-50', title: 'Smart Analytics', desc: 'Real-time insights and data-driven decisions with advanced analytics dashboard.' },
-  { icon: <BookOpen className="w-6 h-6 text-purple-600" />, bg: 'bg-purple-50', title: 'Modern LMS', desc: 'Engaging learning experience with powerful LMS and collaboration tools.' },
-  { icon: <CreditCard className="w-6 h-6 text-orange-600" />, bg: 'bg-orange-50', title: 'Financial Management', desc: 'Streamlined fee collection, invoicing, and financial reporting made simple.' },
-  { icon: <Shield className="w-6 h-6 text-green-600" />, bg: 'bg-green-50', title: 'Secure & Scalable', desc: 'Enterprise-grade security with scalable architecture for growing institutions.' },
-  { icon: <Smartphone className="w-6 h-6 text-pink-600" />, bg: 'bg-pink-50', title: 'Mobile Ready', desc: 'Access anywhere, anytime with our responsive and mobile-first design.' },
-]
 
 const UNIVERSITIES = [
   { name: 'Greenfield University', abbr: 'G' },
@@ -29,280 +20,286 @@ const PRICING = [
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="min-h-screen bg-[#020817] text-slate-100 overflow-x-hidden selection:bg-blue-600/30 font-sans">
+      
+      {/* Background Gradients */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px] mix-blend-screen"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[60%] rounded-full bg-indigo-600/10 blur-[120px] mix-blend-screen"></div>
+        <div className="absolute bottom-[-20%] left-[20%] w-[60%] h-[40%] rounded-full bg-purple-600/10 blur-[120px] mix-blend-screen"></div>
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+      </div>
 
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-slate-100 shadow-sm">
+      <nav className="fixed top-0 inset-x-0 z-50 bg-[#020817]/60 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
-          <div className="flex items-center gap-2 font-bold text-slate-900 text-xl tracking-tight">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm shadow-blue-600/30">
+          <div className="flex items-center gap-2 font-bold text-white text-xl tracking-tight">
+            <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
-            StudySync<span className="text-blue-600">.</span>
+            StudySync<span className="text-blue-500">.</span>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
             {NAV_LINKS.map(link => (
-              <button key={link} className="flex items-center gap-0.5 hover:text-slate-900 transition-colors">
+              <button key={link} className="flex items-center gap-1 hover:text-white transition-colors">
                 {link}
-                {(link === 'Solutions' || link === 'Resources') && <ChevronDown className="w-3.5 h-3.5 ml-0.5 opacity-60" />}
+                {(link === 'Solutions' || link === 'Resources') && <ChevronDown className="w-3.5 h-3.5 opacity-60" />}
               </button>
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link to="/login" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors hidden sm:block px-2">Log in</Link>
-            <Link to="/login" className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-5 py-2.5 rounded-full shadow-sm shadow-blue-600/30 transition-colors">
-              Get Started
+          <div className="flex items-center gap-4">
+            <Link to="/login" className="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden sm:block">Log in</Link>
+            <Link to="/login" className="relative group overflow-hidden rounded-full p-[1px]">
+              <span className="absolute inset-0 bg-linear-to-r from-blue-500 to-indigo-500 rounded-full opacity-70 group-hover:opacity-100 transition-opacity blur-sm"></span>
+              <div className="relative bg-[#020817] flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 group-hover:bg-[#020817]/50 transition-colors">
+                <span className="text-sm font-semibold text-white">Get Started</span>
+                <ArrowRight className="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform" />
+              </div>
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 pt-16 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-6 items-center">
-        {/* Left */}
-        <div className="flex flex-col items-start">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold mb-8 shadow-sm">
-            <span className="text-yellow-500">✦</span>
+      <main className="relative z-10 pt-32 pb-20">
+        
+        {/* Hero Section */}
+        <section className="max-w-5xl mx-auto px-6 pt-16 pb-24 flex flex-col items-center text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold mb-8 shadow-sm backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
             StudySync 2.0 is now live
           </div>
 
-          <h1 className="text-5xl lg:text-[3.5rem] font-extrabold text-slate-900 leading-[1.1] tracking-tight mb-6">
-            The intelligent<br />
-            operating system<br />
-            for{' '}
-            <span className="text-blue-600">modern<br />universities</span>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-[1.1] tracking-tight mb-8">
+            The intelligent OS for <br/>
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-indigo-400 to-purple-400">
+              modern universities.
+            </span>
           </h1>
 
-          <p className="text-slate-600 text-lg leading-relaxed mb-10 max-w-md">
-            Unify admissions, academics, LMS, finance, and operations in one beautiful, enterprise-grade platform. Designed for administrators, loved by students.
+          <p className="text-slate-400 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl">
+            Unify admissions, academics, LMS, finance, and operations in one beautiful, enterprise-grade platform. Built for the future of education.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 mb-8">
-            <Link to="/login" className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-6 py-3 rounded-full shadow-md shadow-blue-600/25 transition-all hover:shadow-lg hover:shadow-blue-600/30 group">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-12">
+            <Link to="/login" className="w-full sm:w-auto flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-base font-bold px-8 py-4 rounded-full shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-500/40 hover:-translate-y-0.5">
               Start Free Trial
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
-            <button className="flex items-center gap-2 border border-slate-200 text-slate-700 text-sm font-bold px-6 py-3 rounded-full hover:bg-slate-50 transition-colors bg-white shadow-sm">
-              <div className="w-5 h-5 rounded-full border-2 border-slate-400 flex items-center justify-center">
-                <Play className="w-2.5 h-2.5 fill-slate-500 text-slate-500 ml-0.5" />
-              </div>
+            <button className="w-full sm:w-auto flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-base font-bold px-8 py-4 rounded-full backdrop-blur-md transition-all">
+              <Play className="w-4 h-4 fill-current" />
               Watch Demo
             </button>
           </div>
 
-          <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-slate-500">
-            {['No credit card required', 'Easy setup in 5 minutes', 'Cancel anytime'].map(t => (
-              <span key={t} className="flex items-center gap-1.5">
-                <CheckCircle className="w-3.5 h-3.5 text-slate-400" /> {t}
-              </span>
-            ))}
+          {/* Trusted By */}
+          <div className="pt-10 border-t border-white/5 w-full max-w-3xl">
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6">Trusted by innovative institutions worldwide</p>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-50 grayscale">
+              {UNIVERSITIES.map(u => (
+                <div key={u.name} className="flex items-center gap-2 font-bold text-lg text-white">
+                  <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+                    {u.abbr}
+                  </div>
+                  <span className="hidden sm:block">{u.name.split(' ')[0]}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
 
-        {/* Right — Dashboard Mockup */}
-        <div className="relative">
-          <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-2xl shadow-slate-200/80">
-            {/* Fake browser chrome */}
-            <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-2">
+        {/* Floating Mockup (Abstract representation) */}
+        <section className="max-w-6xl mx-auto px-6 mb-32 relative perspective-1000">
+          <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-blue-900/20 bg-[#0a0f1e]/80 backdrop-blur-2xl transform rotate-x-2 scale-95 hover:scale-100 hover:rotate-x-0 transition-all duration-700 ease-out">
+            <div className="bg-white/5 border-b border-white/10 px-4 py-3 flex items-center gap-2">
               <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                <div className="w-3 h-3 rounded-full bg-green-400"></div>
-              </div>
-              <div className="flex-1 mx-4 bg-white border border-slate-200 rounded-md px-3 py-1 text-[10px] text-slate-400 font-mono">
-                app.studysync.edu/admin/dashboard
+                <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                <div className="w-3 h-3 rounded-full bg-white/20"></div>
               </div>
             </div>
-
-            {/* Fake Dashboard UI */}
-            <div className="bg-white flex" style={{ minHeight: '360px' }}>
-              {/* Sidebar */}
-              <div className="w-44 shrink-0 border-r border-slate-100 bg-white p-3 flex-col gap-1 hidden sm:flex">
-                <div className="flex items-center gap-2 px-2 py-2 mb-3">
-                  <div className="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center"><GraduationCap className="w-3.5 h-3.5 text-white" /></div>
-                  <span className="text-xs font-bold text-slate-800">StudySync</span>
+            <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="md:col-span-2 space-y-6">
+                <div className="h-48 rounded-xl bg-linear-to-br from-blue-600/20 to-purple-600/20 border border-white/5 p-6 flex flex-col justify-end">
+                   <div className="w-1/2 h-4 bg-white/20 rounded-full mb-3"></div>
+                   <div className="w-3/4 h-8 bg-white/30 rounded-lg"></div>
                 </div>
-                {['Dashboard', 'Students', 'Admissions', 'Academics', 'LMS', 'Finance', 'Exams', 'Attendance', 'Reports', 'Calendar', 'Messages', 'Settings'].map((item, i) => (
-                  <div key={item} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg cursor-pointer text-[11px] font-medium ${i === 0 ? 'bg-blue-600 text-white' : 'text-slate-500 hover:bg-slate-50'}`}>
-                    <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-white' : 'bg-slate-300'}`}></div>
-                    {item}
-                  </div>
-                ))}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="h-32 rounded-xl bg-white/5 border border-white/5"></div>
+                  <div className="h-32 rounded-xl bg-white/5 border border-white/5"></div>
+                </div>
               </div>
-
-              {/* Main Content */}
-              <div className="flex-1 p-4 bg-slate-50/50 overflow-hidden">
-                {/* Topbar */}
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <p className="text-[11px] text-slate-400">Dashboard</p>
-                    <p className="text-sm font-bold text-slate-800">Good morning, Dr. Sarah 👋</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-slate-200"></div>
-                  </div>
-                </div>
-
-                {/* KPI Row */}
-                <div className="grid grid-cols-4 gap-2 mb-4">
-                  {[
-                    { label: 'Total Students', value: '24,538', change: '+12.5%' },
-                    { label: 'Active Courses', value: '1,259', change: '+8.2%' },
-                    { label: 'Faculty Members', value: '1,125', change: '+7.1%' },
-                    { label: 'Revenue This Month', value: '$128,430', change: '+16.3%' },
-                  ].map(k => (
-                    <div key={k.label} className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
-                      <p className="text-[9px] text-slate-400 mb-1">{k.label}</p>
-                      <p className="text-sm font-extrabold text-slate-900 leading-tight">{k.value}</p>
-                      <p className="text-[9px] text-green-600 font-semibold mt-0.5">{k.change}</p>
+              <div className="space-y-6">
+                <div className="h-24 rounded-xl bg-indigo-500/20 border border-indigo-500/20"></div>
+                <div className="h-56 rounded-xl bg-white/5 border border-white/5 p-4 flex flex-col gap-3">
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className="h-10 rounded-lg bg-white/5 flex items-center px-3 gap-3">
+                       <div className="w-6 h-6 rounded-full bg-white/10"></div>
+                       <div className="flex-1 h-3 rounded-full bg-white/10"></div>
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                {/* Charts Row */}
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="col-span-2 bg-white rounded-xl p-3 border border-slate-100 shadow-sm">
-                    <p className="text-[10px] font-bold text-slate-700 mb-2">Admissions Overview</p>
-                    <div className="flex items-end gap-1 h-16">
-                      {[40,55,35,70,50,65,80,60,75,55,85,70].map((h, i) => (
-                        <div key={i} className="flex-1 flex flex-col gap-0.5 items-center">
-                          <div className="w-full bg-blue-600 rounded-t-sm opacity-70" style={{ height: `${h}%` }}></div>
-                          <div className="w-full bg-blue-200 rounded-t-sm" style={{ height: `${h * 0.6}%` }}></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="bg-white rounded-xl p-3 border border-slate-100 shadow-sm flex flex-col items-center justify-center">
-                    <p className="text-[10px] font-bold text-slate-700 mb-2 self-start">Students by Faculty</p>
-                    <div className="w-16 h-16 rounded-full border-8 border-blue-600 flex items-center justify-center relative">
-                      <div className="absolute inset-0 rounded-full border-8 border-transparent border-t-teal-400 rotate-45"></div>
-                      <p className="text-[10px] font-extrabold text-slate-800">24,538</p>
-                    </div>
-                  </div>
+        {/* Bento Box Features */}
+        <section className="max-w-7xl mx-auto px-6 py-24">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">Everything you need, <br/>beautifully integrated.</h2>
+            <p className="text-slate-400 text-lg">A truly unified experience that removes data silos and accelerates learning outcomes.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[280px]">
+            {/* Main Feature 1 */}
+            <div className="md:col-span-2 md:row-span-2 rounded-3xl bg-linear-to-br from-blue-900/40 to-indigo-900/40 border border-white/10 p-10 flex flex-col relative overflow-hidden group hover:border-blue-500/30 transition-colors">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl group-hover:bg-blue-500/20 transition-colors"></div>
+              <div className="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20 backdrop-blur-md">
+                <BookOpen className="w-7 h-7" />
+              </div>
+              <h3 className="text-3xl font-bold text-white mb-4 mt-auto">Next-Gen LMS</h3>
+              <p className="text-slate-400 text-lg max-w-md">Deliver engaging, interactive content with our modern learning management system. Real-time collaboration, auto-grading, and rich media support built-in.</p>
+            </div>
+
+            {/* Minor Feature 1 */}
+            <div className="rounded-3xl bg-white/5 border border-white/10 p-8 flex flex-col group hover:bg-white/10 transition-colors relative overflow-hidden">
+              <div className="w-12 h-12 rounded-xl bg-teal-500/20 flex items-center justify-center text-teal-400 mb-6 border border-teal-500/20">
+                <BarChart2 className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2 mt-auto">Smart Analytics</h3>
+              <p className="text-slate-400 text-sm">Real-time insights and predictive modeling to track student success and institutional health.</p>
+            </div>
+
+            {/* Minor Feature 2 */}
+            <div className="rounded-3xl bg-white/5 border border-white/10 p-8 flex flex-col group hover:bg-white/10 transition-colors relative overflow-hidden">
+               <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400 mb-6 border border-orange-500/20">
+                <CreditCard className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2 mt-auto">Financial Management</h3>
+              <p className="text-slate-400 text-sm">Automated fee collection, transparent invoicing, and seamless payment gateways.</p>
+            </div>
+
+            {/* Wide Feature */}
+            <div className="md:col-span-3 rounded-3xl bg-linear-to-r from-purple-900/40 to-pink-900/40 border border-white/10 p-10 flex flex-col sm:flex-row items-center gap-10 group hover:border-purple-500/30 transition-colors relative overflow-hidden">
+              <div className="absolute left-0 bottom-0 w-full h-32 bg-purple-500/10 blur-3xl"></div>
+              <div className="flex-1">
+                <div className="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6 border border-purple-500/20 backdrop-blur-md">
+                  <Shield className="w-7 h-7" />
                 </div>
+                <h3 className="text-3xl font-bold text-white mb-4">Enterprise Grade Security</h3>
+                <p className="text-slate-400 text-lg max-w-xl">Your institution's data is secured with state-of-the-art encryption, multi-tenant isolation, and strict role-based access control (RBAC).</p>
+              </div>
+              <div className="hidden md:flex flex-1 justify-end">
+                 <div className="w-48 h-48 border-[16px] border-white/5 rounded-full flex items-center justify-center border-t-purple-500 border-r-pink-500 rotate-45">
+                   <div className="w-32 h-32 border-[12px] border-white/5 rounded-full border-l-blue-500 -rotate-90"></div>
+                 </div>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Floating accent */}
-          <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-blue-100 rounded-2xl -z-10"></div>
-          <div className="absolute -top-4 -left-4 w-12 h-12 bg-slate-100 rounded-2xl -z-10"></div>
-        </div>
-      </section>
-
-      {/* Trusted By */}
-      <section className="max-w-7xl mx-auto px-6 py-12">
-        <p className="text-center text-sm font-medium text-slate-400 mb-8">Trusted by 500+ universities and colleges worldwide</p>
-        <div className="flex flex-wrap justify-center items-center gap-10">
-          {UNIVERSITIES.map(u => (
-            <div key={u.name} className="flex items-center gap-2.5 opacity-50 hover:opacity-80 transition-opacity cursor-pointer">
-              <div className="w-8 h-8 rounded-full border-2 border-slate-300 flex items-center justify-center text-slate-400 font-bold text-xs">
-                {u.abbr}
-              </div>
-              <span className="text-sm font-semibold text-slate-500">{u.name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="max-w-7xl mx-auto px-6 py-16 border-t border-slate-100">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-          {FEATURES.map((f, i) => (
-            <div key={i} className="flex flex-col items-start gap-3 group cursor-pointer">
-              <div className={`w-12 h-12 rounded-xl ${f.bg} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                {f.icon}
-              </div>
-              <h3 className="text-sm font-bold text-slate-900">{f.title}</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="bg-slate-50 border-t border-slate-100 py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-3">Simple, transparent pricing</h2>
-            <p className="text-slate-500">Choose the plan that fits your institution size.</p>
+        {/* Pricing */}
+        <section className="max-w-7xl mx-auto px-6 py-24">
+           <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">Simple, transparent pricing.</h2>
+            <p className="text-slate-400 text-lg">Scalable plans tailored for institutions of every size.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {PRICING.map((p, i) => (
-              <div key={i} className={`bg-white rounded-2xl p-8 border shadow-sm relative ${p.popular ? 'border-blue-500 shadow-blue-100' : 'border-slate-200'}`}>
-                {p.popular && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            {PRICING.map((plan, i) => (
+              <div key={plan.name} className={`relative rounded-3xl p-8 backdrop-blur-xl transition-transform hover:-translate-y-2 ${plan.popular ? 'bg-blue-600/10 border border-blue-500/50 shadow-2xl shadow-blue-900/20 transform md:scale-105 z-10' : 'bg-white/5 border border-white/10'}`}>
+                {plan.popular && (
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-linear-to-r from-blue-500 to-indigo-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
                     Most Popular
-                  </span>
+                  </div>
                 )}
-                <h3 className="font-bold text-slate-900 mb-1">{p.name}</h3>
-                <p className="text-xs text-slate-400 mb-5 h-8 leading-relaxed">{p.desc}</p>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold text-slate-900">{p.price}</span>
-                  <span className="text-slate-400 text-sm">{p.period}</span>
+                <h3 className="text-xl font-semibold text-white mb-2">{plan.name}</h3>
+                <p className="text-slate-400 text-sm mb-6 h-10">{plan.desc}</p>
+                <div className="mb-8">
+                  <span className="text-4xl font-extrabold text-white">{plan.price}</span>
+                  <span className="text-slate-400">{plan.period}</span>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  {p.features.map((f, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
-                      <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/login"
-                  className={`block text-center py-2.5 rounded-full text-sm font-bold transition-colors ${p.popular ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm shadow-blue-600/20' : 'border border-slate-200 text-slate-700 hover:bg-slate-50'}`}
-                >
+                
+                <Link to="/login" className={`w-full py-3 rounded-full font-bold flex items-center justify-center transition-colors ${plan.popular ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20' : 'bg-white/10 hover:bg-white/20 text-white'}`}>
                   Get Started
                 </Link>
+
+                <div className="mt-8 space-y-4">
+                  {plan.features.map(f => (
+                    <div key={f} className="flex items-center gap-3">
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.popular ? 'bg-blue-500/20 text-blue-400' : 'bg-white/10 text-slate-300'}`}>
+                        <Check className="w-3 h-3 stroke-[3]" />
+                      </div>
+                      <span className="text-sm text-slate-300">{f}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+        
+        {/* CTA */}
+        <section className="max-w-5xl mx-auto px-6 py-24">
+          <div className="rounded-[3rem] bg-linear-to-br from-blue-600 to-indigo-800 p-12 md:p-20 text-center relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to transform your campus?</h2>
+              <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">Join hundreds of universities moving to the modern standard of educational management.</p>
+              <Link to="/login" className="inline-flex items-center gap-2 bg-white text-blue-900 hover:bg-blue-50 text-lg font-bold px-8 py-4 rounded-full shadow-xl transition-all hover:scale-105">
+                Start your free trial <ArrowUpRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
+        </section>
 
-      {/* CTA */}
-      <section className="bg-blue-600 py-20">
-        <div className="max-w-3xl mx-auto px-6 text-center text-white">
-          <h2 className="text-3xl lg:text-4xl font-extrabold tracking-tight mb-4">Ready to transform your campus?</h2>
-          <p className="text-blue-100 mb-8 text-lg">Join hundreds of forward-thinking institutions that have unified their operations with StudySync.</p>
-          <Link to="/login" className="inline-flex items-center gap-2 bg-white text-blue-600 font-bold px-8 py-3.5 rounded-full shadow-lg hover:bg-blue-50 transition-colors">
-            Start Free Trial <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
+      </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-12">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
-          <div className="col-span-2">
-            <div className="flex items-center gap-2 font-bold text-white text-lg mb-4">
-              <div className="w-7 h-7 bg-blue-600 rounded-md flex items-center justify-center"><GraduationCap className="w-4 h-4 text-white" /></div>
-              StudySync<span className="text-blue-500">.</span>
+      <footer className="border-t border-white/10 bg-[#020817] pt-16 pb-8 text-slate-400">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div>
+              <div className="flex items-center gap-2 font-bold text-white text-lg mb-6">
+                <GraduationCap className="w-5 h-5 text-blue-500" />
+                StudySync.
+              </div>
+              <p className="text-sm">The OS for modern universities.</p>
             </div>
-            <p className="text-sm leading-relaxed text-slate-500">The modern, comprehensive management platform for higher education institutions.</p>
-          </div>
-          {[
-            { title: 'Product', links: ['Features', 'Pricing', 'Security', 'API'] },
-            { title: 'Resources', links: ['Documentation', 'Help Center', 'Blog', 'Case Studies'] },
-            { title: 'Company', links: ['About Us', 'Careers', 'Privacy', 'Terms'] },
-          ].map(col => (
-            <div key={col.title}>
-              <h4 className="text-slate-100 font-bold mb-4 text-sm">{col.title}</h4>
-              <ul className="space-y-2.5">
-                {col.links.map(l => (
-                  <li key={l}><a href="#" className="text-sm hover:text-white transition-colors">{l}</a></li>
-                ))}
+            <div>
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-3 text-sm">
+                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Solutions</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
               </ul>
             </div>
-          ))}
-        </div>
-        <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-800 text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>© 2026 StudySync Inc. Built with care by rehancodeofficial.</p>
-          <div className="flex gap-5">
-            {['Twitter', 'LinkedIn', 'GitHub'].map(s => <a key={s} href="#" className="hover:text-white transition-colors">{s}</a>)}
+            <div>
+              <h4 className="text-white font-semibold mb-4">Resources</h4>
+              <ul className="space-y-3 text-sm">
+                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">Company</h4>
+              <ul className="space-y-3 text-sm">
+                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+            <p>© 2026 StudySync Inc. All rights reserved.</p>
+            <div className="flex gap-4">
+              <a href="#" className="hover:text-white">Privacy Policy</a>
+              <a href="#" className="hover:text-white">Terms of Service</a>
+            </div>
           </div>
         </div>
       </footer>
