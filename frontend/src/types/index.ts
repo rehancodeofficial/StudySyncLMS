@@ -141,3 +141,57 @@ export interface OrgStats {
   totalCourses: number
   totalEnrollments: number
 }
+
+import type { ReactNode } from 'react'
+
+export interface TableColumn<T> {
+  key: keyof T | string
+  header: string
+  render?: (value: unknown, row: T) => ReactNode
+  sortable?: boolean
+  className?: string
+  width?: string
+}
+
+export interface PaginationMeta {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+}
+
+export interface Student {
+  id: string
+  studentId: string
+  name: string
+  email: string
+  phone?: string
+  avatar?: string
+  department: string
+  program: string
+  semester: number
+  section: string
+  enrollmentDate: string
+  status: 'ACTIVE' | 'INACTIVE' | 'GRADUATED' | 'SUSPENDED'
+  gpa?: number
+  attendancePercentage?: number
+  gender?: string
+  dob?: string
+  address?: string
+}
+
+export interface Teacher {
+  id: string
+  employeeId: string
+  name: string
+  email: string
+  phone?: string
+  avatar?: string
+  department: string
+  qualification: string
+  specialization: string
+  joinDate: string
+  status: 'ACTIVE' | 'INACTIVE' | 'ON_LEAVE'
+  courseCount?: number
+  studentCount?: number
+}

@@ -9,6 +9,7 @@ export interface StoredUser {
   email: string
   role: Role
   organizationId?: number | null
+  avatar?: string
 }
 
 export const roleRedirects: Record<Role, string> = {
