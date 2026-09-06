@@ -141,7 +141,7 @@ export function LoginPage() {
             </div>
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="label !mb-0">Password</label>
+                <label className="label mb-0!">Password</label>
                 <Link to="/forgot-password" className="text-xs text-blue-650 hover:underline">Forgot?</Link>
               </div>
               <div className="relative">
