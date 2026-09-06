@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -11,7 +11,20 @@
   --color-warning: #F59E0B;
   --color-error: #DC2626;
   --color-info: #0284C7;
+
+  /* StudySync Brand Tokens */
+  --color-ss-bg: #F5F9F8;
+  --color-ss-warm-white: #FCFDFC;
+  --color-ss-dark: #37292B;
+  --color-ss-muted-blue: #B6C6D7;
+  --color-ss-lavender: #AEA1D0;
+  --color-ss-purple: #9579AE;
+  --color-ss-edu-blue: #4866A4;
+  --color-ss-accent: #B27F51;
+  --color-ss-green: #57A889;
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* ─── Base ─────────────────────────────────────────────── */
