@@ -89,7 +89,7 @@ export function StudentDashboard() {
             <p className="text-sm font-medium text-slate-500 relative z-10">Completed Modules</p>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-5 border border-indigo-500 shadow-sm flex flex-col hover:shadow-md transition-shadow relative overflow-hidden group text-white">
+          <div className="bg-linear-to-br from-blue-600 to-indigo-700 rounded-2xl p-5 border border-indigo-500 shadow-sm flex flex-col hover:shadow-md transition-shadow relative overflow-hidden group text-white">
              <div className="absolute right-0 top-0 w-32 h-32 rounded-full bg-white/10 blur-xl group-hover:scale-125 transition-transform duration-500 z-0"></div>
             <div className="relative z-10 flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-md">
@@ -126,7 +126,7 @@ export function StudentDashboard() {
                 enrollments.map((enrollment) => (
                   <div key={enrollment.id} className="bg-slate-50 rounded-2xl p-5 border border-slate-100 hover:border-blue-200 hover:bg-blue-50/50 transition-colors group cursor-pointer relative overflow-hidden">
                     <div className="flex gap-4 items-start mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/20">
+                      <div className="w-12 h-12 rounded-xl bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-sm shadow-blue-500/20">
                         <span className="text-white font-bold text-lg">{enrollment.course.title.charAt(0)}</span>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -202,7 +202,7 @@ export function StudentDashboard() {
         </div>
 
         {/* Right Column (Sidebar) */}
-        <div className="lg:w-[340px] shrink-0 flex flex-col gap-8">
+        <div className="lg:w-85 shrink-0 flex flex-col gap-8">
           
           {/* Study Activity Chart (CSS Mock) */}
           <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
