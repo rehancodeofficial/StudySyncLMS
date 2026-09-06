@@ -1,21 +1,32 @@
 spring:
   application:
-    name: backend
+    name: StudySync LMS
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/studysync}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/studysync_saas}
+    username: ${DB_USERNAME:studysync}
+    password: ${DB_PASSWORD:studysync_secret}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  sql:
+    init:
+      mode: always
 
   data:
     redis:
@@ -23,5 +34,17 @@ spring:
       port: ${REDIS_PORT:6379}
 
 jwt:
-  secret: ${JWT_SECRET:studysync_super_secret_key_that_must_be_long_enough_for_hs256_algo_2026}
-  expiration: 86400000 # 24 hours
+  secret: ${JWT_SECRET:studysync_super_secret_key_that_must_be_at_least_256bits_long_for_hs256_algo_studysync_2026}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+logging:
+  level:
+    com.studysync: INFO
+    org.springframework.security: WARN
